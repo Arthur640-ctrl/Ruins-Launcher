@@ -77,11 +77,12 @@ public class Bootstrap {
         String os = System.getProperty("os.name").toLowerCase();
 
         if (os.contains("win")) {
-            return Paths.get(System.getenv("APPDATA"), "Ruins");
+            return Paths.get(System.getenv("APPDATA"), ".RuinsLauncher");
         } else if (os.contains("mac")) {
-            return Paths.get(System.getProperty("user.home"), "Library", "Application Support", "Ruins");
+            return Paths.get(System.getProperty("user.home"),
+                    "Library", "Application Support", ".RuinsLauncher");
         } else {
-            return Paths.get(System.getProperty("user.home"), ".ruins");
+            return Paths.get(System.getProperty("user.home"), ".RuinsLauncher");
         }
     }
 
@@ -133,6 +134,9 @@ public class Bootstrap {
             // Etape 3 : Lancement
             set_status("Lancement de Ruins...", 95);
             Thread.sleep(600);
+
+            create_bootstrap_lock();
+
             launch_launcher(java_executable);
 
             set_progress(100);
@@ -283,6 +287,13 @@ public class Bootstrap {
     // ══════════════════════════════════════════════════════════
     //  ETAPE 3 — LANCEMENT DU LAUNCHER
     // ══════════════════════════════════════════════════════════
+
+    private static void create_bootstrap_lock() throws IOException {
+        Files.write(
+                DATA_DIR.resolve("bootstrap.lock"),
+                "ok".getBytes(StandardCharsets.UTF_8)
+        );
+    }
 
     /**
      * Lance le launcher JAR avec Java 17.

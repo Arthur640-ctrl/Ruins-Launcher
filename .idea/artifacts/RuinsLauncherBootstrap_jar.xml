@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="RuinsLauncherBootstrap:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/RuinsLauncherBootstrap_jar</output-path>
+    <root id="archive" name="RuinsBootstrap.jar">
+      <element id="module-output" name="RuinsBootstrap" />
+    </root>
+  </artifact>
+</component>

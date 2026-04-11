@@ -154,8 +154,8 @@ public class HomePanel extends JPanel {
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        descArea = new JTextArea("Plongez dans un univers unique où chaque ruine raconte une histoire. " +
-                "Préparez-vous pour l'aventure ultime sur notre serveur Minecraft.");
+        descArea = new JTextArea("Survivez, combattez et imposez votre règne dans une cité abandonnée sans pitié. " +
+                "Rejoignez l'aventure ultime et prouvez que vous êtes le sommet de la chaîne alimentaire.");
         descArea.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         descArea.setForeground(TEXT_COLOR);
         descArea.setOpaque(false);

@@ -35,6 +35,17 @@ public class Frame extends JFrame {
     }
 
     public static void main(String[] args) throws IOException {
+        if (!isLaunchedFromBootstrap()) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Veuillez lancer Ruins via le launcher officiel (Bootstrap).",
+                    "Ruins Launcher",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            System.exit(0);
+        }
+
+
         Launcher.crashFile.mkdir();
         instance = new Frame();
     }
@@ -122,6 +133,17 @@ public class Frame extends JFrame {
     public static AuthPanel getLoginPanel() throws IOException {
         if (authPanel == null) authPanel = new AuthPanel();
         return authPanel;
+    }
+
+    // BOOTSTRAP CHECK
+    private static boolean isLaunchedFromBootstrap() {
+        return java.nio.file.Files.exists(
+                java.nio.file.Paths.get(
+                        System.getenv("APPDATA"),
+                        ".RuinsLauncher",
+                        "bootstrap.lock"
+                )
+        );
     }
 
 }
