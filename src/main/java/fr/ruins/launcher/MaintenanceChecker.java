@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class MaintenanceChecker {
 
-    private static final String API_BASE_URL    = "http://137.74.42.218:5400";
+    private static String API_BASE_URL = "http://137.74.42.218:5400";
     private static final int    POLL_INTERVAL_S = 120; // 2 minutes
     private static final int    TIMEOUT_MS      = 5_000;
 
@@ -66,6 +66,11 @@ public class MaintenanceChecker {
      * Appeler une seule fois au chargement de HomePanel.
      */
     public static void start(MaintenanceCallback callback) {
+
+        if (Launcher.dev_mode == true) {
+            API_BASE_URL = "http://127.0.0.1:5400";
+        }
+
         if (scheduler != null && !scheduler.isShutdown()) stop();
 
         scheduler = Executors.newSingleThreadScheduledExecutor(r -> {

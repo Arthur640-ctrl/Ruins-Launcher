@@ -54,6 +54,9 @@ public class Launcher {
         userPreferences.load(path);
     }
 
+    // Dev mode
+    public static boolean dev_mode = false;
+
     // ==========================================================================
     // AUTH
     // ==========================================================================
@@ -93,10 +96,10 @@ public class Launcher {
         try (FileWriter writer = new FileWriter(file)) {
             JsonObject json = new JsonObject();
 
-            json.addProperty("uuid",          session.getUuid());
-            json.addProperty("username",      session.getUsername());
+            json.addProperty("uuid", session.getUuid());
+            json.addProperty("username", session.getUsername());
             json.addProperty("session_token", session.getSessionToken());
-            json.addProperty("email",         session.getEmail());
+            json.addProperty("email", session.getEmail());
 
             gson.toJson(json, writer);
 
@@ -165,9 +168,16 @@ public class Launcher {
 
         List<String> args = new ArrayList<>();
 
-        args.add("--quickPlayMultiplayer");
-        args.add(serverAddress);
-        args.addAll(userPreferences.getJvmArgs());
+        if (dev_mode == false) {
+            args.add("--quickPlayMultiplayer");
+            args.add(serverAddress);
+            args.addAll(userPreferences.getJvmArgs());
+
+        } else {
+            args.add("--quickPlayMultiplayer");
+            args.add("0.0.0.0:25565");
+            args.addAll(userPreferences.getJvmArgs());
+        }
 
         noFramework.setAdditionalArgs(args);
 

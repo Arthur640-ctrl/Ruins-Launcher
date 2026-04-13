@@ -72,9 +72,9 @@ public class UpdateManager {
         // ── Étape 1 : Appel API /update/check ──────────────────────────────
         callback.onProgress(0, "Vérification des mises à jour...");
 
-        JsonObject updateInfo   = fetchUpdateInfo();
+        JsonObject updateInfo = fetchUpdateInfo();
         String remoteVersion = updateInfo.get("version").getAsString();
-        String manifestUrl   = updateInfo.get("manifest_url").getAsString();
+        String manifestUrl = updateInfo.get("manifest_url").getAsString();
         String serverAddress = updateInfo.get("address").getAsString();
 
         Launcher.serverAddress = serverAddress;

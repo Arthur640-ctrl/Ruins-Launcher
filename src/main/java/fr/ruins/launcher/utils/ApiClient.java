@@ -3,6 +3,7 @@ package fr.ruins.launcher.utils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import fr.ruins.launcher.Launcher;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -11,9 +12,18 @@ import java.net.URL;
 public class ApiClient {
 
     private static final String API_URL = "http://137.74.42.218:5400";
+    private static final String DEV_URL = "http://0.0.0.0:5400";
 
     public static JsonObject register(String email, String pseudo, String password) throws IOException {
-        URL url = new URL(API_URL + "/register");
+
+        URL url = null;
+
+        if (Launcher.dev_mode == false) {
+            url = new URL(API_URL + "/register");
+        } else {
+            url = new URL(DEV_URL + "/register");
+        }
+
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", "application/json");
@@ -58,7 +68,14 @@ public class ApiClient {
     }
 
     public static JsonObject login(String email, String password) throws IOException {
-        URL url = new URL(API_URL + "/login");
+        URL url = null;
+
+        if (Launcher.dev_mode == false) {
+            url = new URL(API_URL + "/login");
+        } else {
+            url = new URL(DEV_URL + "/login");
+        }
+
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", "application/json");
@@ -99,7 +116,14 @@ public class ApiClient {
     }
 
     public static ServerConfig getUpdateConfig() throws IOException {
-        URL url = new URL(API_URL + "/update/check");
+        URL url = null;
+
+        if (Launcher.dev_mode == false) {
+            url = new URL(API_URL + "/update/check");
+        } else {
+            url = new URL(DEV_URL + "/update/check");
+        }
+
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-Type", "application/json");
@@ -127,7 +151,14 @@ public class ApiClient {
     }
 
     public static JsonObject prejoin(String email, String token) throws IOException {
-        URL url = new URL(API_URL + "/session/prejoin");
+        URL url = null;
+
+        if (Launcher.dev_mode == false) {
+            url = new URL(API_URL + "/session/prejoin");
+        } else {
+            url = new URL(DEV_URL + "/session/prejoin");
+        }
+
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", "application/json");
@@ -167,7 +198,14 @@ public class ApiClient {
     }
 
     public static boolean checkSession(String uuid, String username, String sessionToken, String email) throws IOException {
-        URL url = new URL(API_URL + "/session/check");
+        URL url = null;
+
+        if (Launcher.dev_mode == false) {
+            url = new URL(API_URL + "/session/check");
+        } else {
+            url = new URL(DEV_URL + "/session/check");
+        }
+
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", "application/json");
